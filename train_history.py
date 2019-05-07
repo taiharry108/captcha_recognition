@@ -35,9 +35,9 @@ class TrainHistory(object):
     def load_history(cls, filename):
         with open(filename) as f:
             history_dict = json.load(f)
-        return cls(model_name=history['model'],
-                   train_losses=history['train_losses'],
-                   test_losses=history['test_losses'],
-                   train_acc=history['train_acc'],
-                   test_acc=history['test_acc'],
+        return cls(model_name=history_dict['model'],
+                   train_losses=history_dict['train_losses'],
+                   test_losses=history_dict['test_losses'],
+                   train_acc=history_dict['train_acc'],
+                   test_acc=history_dict['test_acc'],
                    )
