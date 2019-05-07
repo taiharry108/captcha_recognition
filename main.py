@@ -1,6 +1,6 @@
 # import models
 import models
-from config import CAP_LEN, TRAIN_DIR, TEST_DIR, MODEL_FILENAME, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
+from config import CAP_LEN, TRAIN_DIR, TEST_DIR, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
 from utils import train, test, get_target_from_indices, get_preds_from_output, get_transformation
 from os.path import join
 
