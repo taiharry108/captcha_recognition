@@ -146,7 +146,7 @@ def get_preds_from_output(output):
     return np.array(preds)
 
 
-def get_transformation(img_width, img_height):
+def get_transformation(img_width=None, img_height=None):
     '''
     A function to perform a sequence of transformations to the input image
     
@@ -157,9 +157,9 @@ def get_transformation(img_width, img_height):
     Returns:
         torchvision.transforms.Compose
     '''
-    return transforms.Compose([
-        transforms.Resize((img_height, img_width)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.8760, 0.8800, 0.8783),
-                             (0.1692, 0.1523, 0.1683)),
-    ])
+    transform_list = [] if img_width is None else [
+        transforms.Resize((img_height, img_width))]
+    transform_list.extend([transforms.ToTensor(),
+                           transforms.Normalize((0.8760, 0.8800, 0.8783),
+                                                (0.1692, 0.1523, 0.1683))])
+    return transforms.Compose(transform_list)

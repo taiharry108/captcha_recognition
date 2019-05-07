@@ -45,7 +45,10 @@ def main():
 
     train_history = TrainHistory(args.arch)
 
-    transforms = get_transformation(model.img_width, model.img_height)
+    if hasattr(model, "img_width"):
+        transforms = get_transformation(model.img_width, model.img_height)
+    else:
+        transforms = get_transformation()
 
     # Set up image folder and loader for training and testing
     train_captcha_folder = datasets.ImageFolder(

@@ -11,6 +11,7 @@ def get_convoluted_len(n, number_of_conv):
         n = (n - 4) / 2
     return int(n)
 
+
 def DenseNet():
     return models.densenet121(num_classes=CAP_LEN*len(CHARACTERS))
 
