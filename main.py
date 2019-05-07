@@ -1,21 +1,36 @@
 # import models
 import models
-from config import CAP_LEN, TRAIN_DIR, TEST_DIR, MODEL_FILENAME, MODEL_FILENAME, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE, MODEL_NAME
+from config import CAP_LEN, TRAIN_DIR, TEST_DIR, MODEL_FILENAME, MODEL_FILENAME, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
 from utils import train, test, get_target_from_indices, get_preds_from_output, get_transformation
 from os.path import join
 
 from torchvision import datasets, transforms
 import torch
 import torch.optim as optim
+import argparse
 
-def get_model():
-    if not MODEL_NAME in models.__all__:
-        raise Except("MODEL_NAME does not exists")
+
+def get_args():
+    model_names = models.__all__
+    parser = argparse.ArgumentParser(
+        description='Captcha Recognition Training')
+    parser.add_argument('-a', '--arch', metavar='ARCH', default='Model1',
+                        choices=model_names,
+                        help='model architecture: ' +
+                        ' | '.join(model_names) +
+                        ' (default: Model1)')
+    return parser.parse_args()
+
+
+def get_model(model_name):
+    if not model_name in models.__all__:
+        raise Except("model_name does not exists")
     else:
-        return models.__dict__[MODEL_NAME]
+        return models.__dict__[model_name]
 
 
 def main():
+    args = get_args()
     # Set the seed so results can be reproduced
     torch.manual_seed(SEED)
     # Check if CUDA is available, use it if so
@@ -43,7 +58,7 @@ def main():
                                               num_workers=1)
 
     print("Going to train for {} epochs".format(EPOCHS))
-    for epoch in range(1, EPOCHS + 1):        
+    for epoch in range(1, EPOCHS + 1):
         train(LOG_INTERVAL, model, device, train_loader, optimizer, epoch,
               get_target_from_indices, train_captcha_folder, MODEL_FILENAME)
         test(model, device, test_loader,
