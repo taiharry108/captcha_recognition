@@ -43,7 +43,7 @@ def generate_captcha(captcha, out_dir, no_of_img=10000, size=CAP_LEN, characters
         if not os.path.isdir(out_path):
             os.makedirs(out_path)
         if i % 10000 == 0:
-            print(i)
+            print("Generating image {} of {}".format(i, no_of_img))
         img_name = '{}.png'.format(len(os.listdir(out_path)))
         captcha.write(text, join(out_path, img_name))
     return True
