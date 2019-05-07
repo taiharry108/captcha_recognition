@@ -8,7 +8,7 @@ Generate captcha images
 ```bash
 $ python captcha_generation.py
 ```
-This generates capcha images and stores them into a training and test folder according to the values in **config.py**. By default, 100000 training images and 10000 testing images are created.
+This generates capcha images and stores them into a training and test folder according to the values in **config.py**. By default, 100,000 training images and 10,000 testing images are created.
 
 Train a model
 ```bash
