@@ -37,7 +37,7 @@ def main():
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    Model = get_model()
+    Model = get_model(args.arch)
     model = Model().to(device)
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
