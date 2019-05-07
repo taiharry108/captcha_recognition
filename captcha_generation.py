@@ -3,7 +3,7 @@ from shutil import copyfile
 from os.path import join
 import numpy as np
 import os
-from config import CAP_LEN, CHARACTERS, RESULT_FILE_NAME, NO_TRAIN_CAP, NO_TEST_CAP
+from config import CAP_LEN, CHARACTERS, RESULT_FILE_NAME, NO_TRAIN_CAP, NO_TEST_CAP, DES_PATH
 
 
 def gen_str(size, characters):
@@ -49,12 +49,10 @@ def generate_captcha(captcha, out_dir, no_of_img=10000, size=CAP_LEN, characters
     return True
 
 def main():
-
     ic = ImageCaptcha()
 
-
-    train_dir = join('tmp', RESULT_FILE_NAME + '_train')
-    test_dir = join('tmp', RESULT_FILE_NAME + '_test')
+    train_dir = join(DES_PATH, RESULT_FILE_NAME + '_train')
+    test_dir = join(DES_PATH, RESULT_FILE_NAME + '_test')
 
     directories = [train_dir, test_dir]
     nos_of_img = [NO_TRAIN_CAP, NO_TEST_CAP]
