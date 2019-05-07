@@ -1,0 +1,10 @@
+DES_PATH = "gdrive/My Drive/projects/captcha_recognition"
+RESULT_FILE_NAME = 'captcha_img'
+
+CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+
+CAP_LEN = 4
+
+NO_TRAIN_CAP = 100000
+NO_TEST_CAP = 10000
