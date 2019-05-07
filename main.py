@@ -1,6 +1,6 @@
 # import models
 import models
-from config import CAP_LEN, TRAIN_DIR, TEST_DIR, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
+from config import CAP_LEN, TRAIN_DIR, TEST_DIR, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE, CHARACTERS
 from utils import train, test, get_target_from_indices, get_preds_from_output, get_transformation
 from os.path import join
 
@@ -29,7 +29,7 @@ def get_model(model_name):
     if not model_name in models.__all__:
         raise Except("model_name does not exists")
     else:
-        return models.__dict__[model_name]
+        return models.__dict__[model_name]()
 
 
 def main():
@@ -40,8 +40,7 @@ def main():
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    Model = get_model(args.arch)
-    model = Model().to(device)
+    model = get_model(args.arch).to(device)
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
     train_history = TrainHistory(args.arch)
@@ -71,6 +70,7 @@ def main():
              get_target_from_indices, test_captcha_folder, 
              train_history=train_history)
 
+        train_history.epoch_finish()
         train_history.save_history()
 
 
