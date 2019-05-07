@@ -30,7 +30,10 @@ def log_test(loss, correct, test_size):
     print(log)
 
 
-def train(log_interval, model, device, train_loader, optimizer, epoch, target_transform, folder, model_file_path, criterion=None):
+def train(log_interval, model, device, train_loader, 
+          optimizer, epoch, target_transform, 
+          folder, model_file_path, criterion=None,
+          train_history=None):
     # set model to train mode
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -52,10 +55,14 @@ def train(log_interval, model, device, train_loader, optimizer, epoch, target_tr
         if batch_idx % log_interval == 0:
             log_train(epoch, batch_idx * len(data),
                       len(train_loader.dataset), loss.item(), correct, len(data))
+            if train_history is not None:
+                train_history.add_train_history(loss.item(), correct/len(data))
+        
         torch.save(model.state_dict(), model_file_path)
 
 
-def test(model, device, test_loader, target_transform, folder, criterion=None):
+def test(model, device, test_loader, target_transform,
+         folder, criterion=None, train_history=None):
     # set model to eval mode
     model.eval()
     test_loss = 0
@@ -74,6 +81,8 @@ def test(model, device, test_loader, target_transform, folder, criterion=None):
             preds = get_preds_from_output(output)
             true_val = get_preds_from_output(target)
             correct = (preds == true_val).sum()
+            if train_history is not None:
+                train_history.add_test_history(test_loss, correct/len(data))
             log_test(test_loss, correct, len(data))
 
 
