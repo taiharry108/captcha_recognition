@@ -1,6 +1,6 @@
 # const for captcha generation
 from os.path import join
-DES_PATH = "gdrive/My Drive/projects/captcha_recognition"
+DES_PATH = "."
 RESULT_FILE_NAME = 'captcha_img'
 
 CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -19,4 +19,3 @@ LOG_INTERVAL = 10
 SEED = 1
 LR = 1e-3
 BATCH_SIZE = 128
-MODEL_NAME = "Model1"
