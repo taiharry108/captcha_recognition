@@ -1,6 +1,6 @@
 # import models
 import models
-from config import CAP_LEN, TRAIN_DIR, TEST_DIR, MODEL_FILENAME, MODEL_FILENAME, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
+from config import CAP_LEN, TRAIN_DIR, TEST_DIR, MODEL_FILENAME, EPOCHS, LOG_INTERVAL, SEED, LR, BATCH_SIZE
 from utils import train, test, get_target_from_indices, get_preds_from_output, get_transformation
 from os.path import join
 
@@ -8,6 +8,7 @@ from torchvision import datasets, transforms
 import torch
 import torch.optim as optim
 import argparse
+from train_history import TrainHistory
 
 
 def get_args():
@@ -19,6 +20,8 @@ def get_args():
                         help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: Model1)')
+    parser.add_argument('-mf', '--model_file', default='model.pt', type=str,
+                        help='model filename')
     return parser.parse_args()
 
 
@@ -41,6 +44,8 @@ def main():
     model = Model().to(device)
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
+    train_history = TrainHistory(args.arch)
+
     transforms = get_transformation(model.img_width, model.img_height)
 
     # Set up image folder and loader for training and testing
@@ -60,9 +65,11 @@ def main():
     print("Going to train for {} epochs".format(EPOCHS))
     for epoch in range(1, EPOCHS + 1):
         train(LOG_INTERVAL, model, device, train_loader, optimizer, epoch,
-              get_target_from_indices, train_captcha_folder, MODEL_FILENAME)
+              get_target_from_indices, train_captcha_folder, args.model_file, train_history)
         test(model, device, test_loader,
-             get_target_from_indices, test_captcha_folder)
+             get_target_from_indices, test_captcha_folder, train_history)
+    
+    train_history.save_history()
 
 
 if __name__ == "__main__":
