@@ -58,7 +58,7 @@ def train(log_interval, model, device, train_loader,
             if train_history is not None:
                 train_history.add_train_history(loss.item(), correct/len(data))
         
-        torch.save(model.state_dict(), model_file_path)
+            torch.save(model.state_dict(), model_file_path)
 
 
 def test(model, device, test_loader, target_transform,

@@ -65,11 +65,13 @@ def main():
     print("Going to train for {} epochs".format(EPOCHS))
     for epoch in range(1, EPOCHS + 1):
         train(LOG_INTERVAL, model, device, train_loader, optimizer, epoch,
-              get_target_from_indices, train_captcha_folder, args.model_file, train_history)
+              get_target_from_indices, train_captcha_folder, args.model_file, 
+              train_history=train_history)
         test(model, device, test_loader,
-             get_target_from_indices, test_captcha_folder, train_history)
-    
-    train_history.save_history()
+             get_target_from_indices, test_captcha_folder, 
+             train_history=train_history)
+
+        train_history.save_history()
 
 
 if __name__ == "__main__":
