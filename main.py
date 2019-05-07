@@ -42,7 +42,8 @@ def main():
                                               shuffle=True,
                                               num_workers=1)
 
-    for epoch in range(1, EPOCHS + 1):
+    print("Going to train for {} epochs".format(EPOCHS))
+    for epoch in range(1, EPOCHS + 1):        
         train(LOG_INTERVAL, model, device, train_loader, optimizer, epoch,
               get_target_from_indices, train_captcha_folder, MODEL_FILENAME)
         test(model, device, test_loader,
