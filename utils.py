@@ -69,7 +69,7 @@ def test(model, device, test_loader, target_transform, folder, criterion=None):
 
             # Set to BCEWithLogitsLoss it criterion is not provided
             if criterion is None:
-                criterion = torch.nn.BCELoss()
+                criterion = torch.nn.BCEWithLogitsLoss()
             test_loss = criterion(output, target).item()
             preds = get_preds_from_output(output)
             true_val = get_preds_from_output(target)
