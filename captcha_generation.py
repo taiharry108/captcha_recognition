@@ -4,6 +4,7 @@ from os.path import join
 import numpy as np
 import os
 from config import CAP_LEN, CHARACTERS, RESULT_FILE_NAME, NO_TRAIN_CAP, NO_TEST_CAP, DES_PATH
+from collections import defaultdict
 
 
 def gen_str(size, characters):
@@ -36,23 +37,27 @@ def generate_captcha(captcha, out_dir, no_of_img=10000, size=CAP_LEN, characters
     Returns;
         bool: True for success, False otherwise.
     '''
-    str_gen = gen_str(size, characters)
+
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
+
+    str_gen = gen_str(size, characters)    
+
+    img_dict = defaultdict(int)
     for i in range(no_of_img):
         text = next(str_gen)
-        out_path = join(out_dir, text)
-        if not os.path.isdir(out_path):
-            os.makedirs(out_path)
         if i % 10000 == 0:
             print("Generating image {} of {}".format(i, no_of_img))
-        img_name = '{}.png'.format(len(os.listdir(out_path)))
-        captcha.write(text, join(out_path, img_name))
+        img_name = f'{text}_{img_dict[text]}.png'
+        img_dict[text] += 1
+        captcha.write(text, join(out_dir, img_name))
     return True
 
 def main():
     ic = ImageCaptcha()
 
-    train_dir = join(DES_PATH, RESULT_FILE_NAME + '_train')
-    test_dir = join(DES_PATH, RESULT_FILE_NAME + '_test')
+    train_dir = join(DES_PATH, RESULT_FILE_NAME, 'train')
+    test_dir = join(DES_PATH, RESULT_FILE_NAME, 'test')
 
     directories = [train_dir, test_dir]
     nos_of_img = [NO_TRAIN_CAP, NO_TEST_CAP]
