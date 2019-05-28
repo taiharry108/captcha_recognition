@@ -12,6 +12,7 @@ NO_TEST_CAP = 10000
 #config for model training
 TRAIN_DIR = join(DES_PATH, RESULT_FILE_NAME + '_train')
 TEST_DIR = join(DES_PATH, RESULT_FILE_NAME + '_test')
+OUT_FILENAME = join(RESULT_FILE_NAME, 'labels.csv')
 
 EPOCHS = 10
 LOG_INTERVAL = 10
