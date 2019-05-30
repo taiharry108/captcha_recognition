@@ -15,3 +15,7 @@ Train a model
 $ python main.py --arch Model1 --model_file model1.pt
 ```
 This trains the preset **Model1** which is Convolutional Neural Network(CNN) consisting of two convolutional layers and two fully-connected layers. The parameters of the trained model is saved to **model1.pt**. The training and testing history are also saved, by default, to **Model1.json**
+
+## Jupyter notebook demo with [fastai](https://github.com/fastai/fastai "fastai")
+
+This [notebook](https://github.com/taiharry108/captcha_recognition/blob/master/Captcha_Recognition.ipynb "notebook") makes use of the fastai libaray, which is a high level library built on top of PyTorch which simplifies training fast and accurate neural nets using modern best practices, to build the captcha solver. Model training time is under 10 minutes with Google Colab and the captcha accuracy is up to 98%. 
