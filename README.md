@@ -18,4 +18,6 @@ This trains the preset **Model1** which is Convolutional Neural Network(CNN) con
 
 ## Jupyter notebook demo with [fastai](https://github.com/fastai/fastai "fastai")
 
+![``](https://github.com/taiharry108/captcha_recognition/blob/master/demo.PNG?raw=true)
+
 This [notebook](https://github.com/taiharry108/captcha_recognition/blob/master/Captcha_Recognition.ipynb "notebook") makes use of the fastai libaray, which is a high level library built on top of PyTorch which simplifies training fast and accurate neural nets using modern best practices, to build the captcha solver. Model training time is under 10 minutes with Google Colab and the captcha accuracy is up to 98%. 
