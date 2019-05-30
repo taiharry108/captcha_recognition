@@ -55,9 +55,9 @@ def generate_captcha(captcha, out_dir, no_of_img=10000, size=CAP_LEN, characters
     return True
 
 
-def generate_csv(train_dir, valid_dir, out_filename):
+def generate_feather(train_dir, valid_dir, out_filename):
     '''
-    A function to generate a csv file with the input files and labels
+    A function to generate a feather file with the input files and labels
 
     Args:
         train_dir (str): A directory containing training images
@@ -82,7 +82,7 @@ def generate_csv(train_dir, valid_dir, out_filename):
                     process_filename(filename), True))
 
     df = pd.DataFrame(rows, columns=['name', 'label', 'is_valid'])
-    df.to_csv(out_filename, index=False)
+    df.to_feather(out_filename, index=False)
 
 
 
@@ -90,7 +90,7 @@ def main():
     ic = ImageCaptcha()
 
     train_dir = join(DES_PATH, RESULT_FILE_NAME, 'train')
-    valid_dir = join(DES_PATH, RESULT_FILE_NAME, 'test')
+    valid_dir = join(DES_PATH, RESULT_FILE_NAME, 'valid')
 
     directories = [train_dir, valid_dir]
     nos_of_img = [NO_TRAIN_CAP, NO_TEST_CAP]
@@ -99,7 +99,6 @@ def main():
         generate_captcha(captcha=ic, out_dir=directory,
                          no_of_img=no_of_img, size=CAP_LEN, characters=CHARACTERS)
     
-    generate_csv(train_dir, valid_dir, OUT_FILENAME)
 
 if __name__ == "__main__":
     main()
