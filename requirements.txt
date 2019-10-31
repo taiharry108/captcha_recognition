@@ -12,7 +12,7 @@ mkl-random==1.0.2
 numpy==1.16.3
 olefile==0.46
 pandas==0.24.2
-Pillow==6.0.0
+Pillow==6.2.0
 pycodestyle==2.5.0
 pycparser==2.19
 pylint==2.3.1
