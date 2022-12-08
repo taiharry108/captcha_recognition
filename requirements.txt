@@ -1,7 +1,7 @@
 astroid==2.2.5
 autopep8==1.4.4
 captcha==0.3
-certifi==2019.3.9
+certifi==2022.12.7
 cffi==1.12.3
 colorama==0.4.1
 isort==4.3.17
